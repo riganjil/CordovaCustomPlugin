@@ -42,12 +42,12 @@ import androidx.annotation.NonNull;
 import org.apache.cordova.*;
 
 import java.util.Arrays;
-import com.arthenica.mobileffmpeg.Config;
-import com.arthenica.mobileffmpeg.FFmpeg;
-import com.arthenica.mobileffmpeg.LogCallback;
-import com.arthenica.mobileffmpeg.LogMessage;
-import com.arthenica.mobileffmpeg.Statistics;
-import com.arthenica.mobileffmpeg.StatisticsCallback;
+import com.arthenica.ffmpegkitfull.Config;
+import com.arthenica.ffmpegkitfull.FFmpeg;
+import com.arthenica.ffmpegkitfull.LogCallback;
+import com.arthenica.ffmpegkitfull.LogMessage;
+import com.arthenica.ffmpegkitfull.Statistics;
+import com.arthenica.ffmpegkitfull.StatisticsCallback;
 
 import android.media.MediaMetadataRetriever;
 
