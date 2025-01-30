@@ -42,12 +42,12 @@ import androidx.annotation.NonNull;
 import org.apache.cordova.*;
 
 import java.util.Arrays;
-import com.arthenica.mobileffmpeg.Config;
-import com.arthenica.mobileffmpeg.FFmpeg;
-import com.arthenica.mobileffmpeg.LogCallback;
-import com.arthenica.mobileffmpeg.LogMessage;
-import com.arthenica.mobileffmpeg.Statistics;
-import com.arthenica.mobileffmpeg.StatisticsCallback;
+import com.arthenica.ffmpegkit.Config;
+import com.arthenica.ffmpegkit.FFmpegKit;
+import com.arthenica.ffmpegkit.LogCallback;
+import com.arthenica.ffmpegkit.LogMessage;
+import com.arthenica.ffmpegkit.Statistics;
+import com.arthenica.ffmpegkit.StatisticsCallback;
 
 import android.media.MediaMetadataRetriever;
 
@@ -268,7 +268,7 @@ public class CordovaCustomPlugin extends CordovaPlugin {
         });
         Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
 
-        long executionId = FFmpeg.executeAsync(command, (executionId1, returnCode) -> {
+        long executionId = FFmpegKit.executeAsync(command, (executionId1, returnCode) -> {
             if (returnCode == Config.RETURN_CODE_SUCCESS) {
                 Log.d("TAG", "Finished command : ffmpeg " + Arrays.toString(command));
                 String base64String = convertFileToBase64(filePath);
