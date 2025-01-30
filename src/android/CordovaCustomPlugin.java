@@ -269,22 +269,15 @@ public class CordovaCustomPlugin extends CordovaPlugin {
         Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
 
         long executionId = FFmpegKit.executeAsync(command, (executionId1, returnCode) -> {
-            if (returnCode == Config.RETURN_CODE_SUCCESS) {
+            if (returnCode.isSuccess(session.getReturnCode())) {
                 Log.d("TAG", "Finished command : ffmpeg " + Arrays.toString(command));
                 String base64String = convertFileToBase64(filePath);
                 if (base64String != null) {
                     callbackContext.success(base64String);
-                } else {
-                    callbackContext.error("Failed to convert video to Base64.");
-                }
-            } else if (returnCode == Config.RETURN_CODE_CANCEL) {
-                Log.e("TAG", "Async command execution cancelled by user.");
-                callbackContext.error("Compression cancelled.");
             } else {
-                Log.e("TAG", String.format("Async command execution failed with returnCode=%d.", returnCode));
-                callbackContext.error("Compression failed.");
+                callbackContext.error("FFmpeg command failed: " + session.getFailStackTrace());
             }
-        });
+        };
         Log.e("TAG", "execFFmpegMergeVideo executionId-" + executionId);
     }
 
