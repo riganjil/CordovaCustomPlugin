@@ -249,11 +249,8 @@ public class CordovaCustomPlugin extends CordovaPlugin {
     }
 
     private void execFFmpegBinary(final String[] command, final CallbackContext callbackContext, final String filePath) {
-        Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
-
-        long executionId = FFmpegKit.executeAsync(command, session -> {
+        long executionId = FFmpegKit.executeAsync(command, (session) -> {
              if (ReturnCode.isSuccess(session.getReturnCode())) {
-                Log.d("TAG", "Finished command : ffmpeg " + Arrays.toString(command));
                 String base64String = convertFileToBase64(filePath);
                 if (base64String != null) {
                     callbackContext.success(base64String);
