@@ -42,7 +42,6 @@ import androidx.annotation.NonNull;
 import org.apache.cordova.*;
 
 import java.util.Arrays;
-import com.arthenica.ffmpegkit.Config;
 import com.arthenica.ffmpegkit.FFmpegKit;
 import com.arthenica.ffmpegkit.LogCallback;
 import com.arthenica.ffmpegkit.LogMessage;
@@ -252,20 +251,6 @@ public class CordovaCustomPlugin extends CordovaPlugin {
     }
 
     private void execFFmpegBinary(final String[] command, final CallbackContext callbackContext, final String filePath) {
-        Config.enableLogCallback(new LogCallback() {
-            @Override
-            public void apply(LogMessage message) {
-                Log.e(Config.TAG, message.getText());
-            }
-        });
-        Config.enableStatisticsCallback(new StatisticsCallback() {
-            @Override
-            public void apply(Statistics newStatistics) {
-                Log.e(Config.TAG, String.format("frame: %d, time: %d", newStatistics.getVideoFrameNumber(), newStatistics.getTime()));
-                Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
-                Log.d("TAG", "progress : " + newStatistics.toString());
-            }
-        });
         Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
 
         long executionId = FFmpegKit.executeAsync(command, (executionId1, returnCode) -> {
