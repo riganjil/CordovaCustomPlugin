@@ -43,10 +43,8 @@ import org.apache.cordova.*;
 
 import java.util.Arrays;
 import com.arthenica.ffmpegkit.FFmpegKit;
-import com.arthenica.ffmpegkit.LogCallback;
-import com.arthenica.ffmpegkit.LogMessage;
-import com.arthenica.ffmpegkit.Statistics;
-import com.arthenica.ffmpegkit.StatisticsCallback;
+import com.arthenica.ffmpegkit.Session;
+import com.arthenica.ffmpegkit.ReturnCode;
 
 import android.media.MediaMetadataRetriever;
 
@@ -253,8 +251,8 @@ public class CordovaCustomPlugin extends CordovaPlugin {
     private void execFFmpegBinary(final String[] command, final CallbackContext callbackContext, final String filePath) {
         Log.d("TAG", "Started command : ffmpeg " + Arrays.toString(command));
 
-        long executionId = FFmpegKit.executeAsync(command, (executionId1, returnCode) -> {
-             if (returnCode.isSuccess(session.getReturnCode())) {
+        long executionId = FFmpegKit.executeAsync(command, session -> {
+             if (ReturnCode.isSuccess(session.getReturnCode())) {
                 Log.d("TAG", "Finished command : ffmpeg " + Arrays.toString(command));
                 String base64String = convertFileToBase64(filePath);
                 if (base64String != null) {
@@ -266,7 +264,6 @@ public class CordovaCustomPlugin extends CordovaPlugin {
                 callbackContext.error("FFmpeg command failed: " + session.getFailStackTrace());
             }
         });
-        Log.e("TAG", "execFFmpegMergeVideo executionId-" + executionId);
     }
 
     private String convertFileToBase64(String filePath) {
